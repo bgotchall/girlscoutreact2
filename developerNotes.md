@@ -50,3 +50,15 @@ I wasn't sure how react router and express worked together.  Basically the serve
 is running on 3000.  Then add a proxy statement to the package.json file so that /api/whatever goes to the server.  How does this deploy to heroku?
 
 taking this line out of package.json.  suspect:  // "heroku-postbuild": "npm install --only=dev && npm install && npm run build"
+
+
+
+Key lessons:
+14 full stack/14 post author  --- literally shows you how to interface to SQL doing a chat function
+
+21 MERN/05 react router --- a l
+
+
+SQL notes:
+Spent forever debugging a test case of getting/posting dumb things from SQL.  You essentally cannot hand-write test data into the DB, it will fail sequelizes' mean tests.  Easier to write a post route and read that.
+Also, it insists on Pluralizing the names so you can't even control that.

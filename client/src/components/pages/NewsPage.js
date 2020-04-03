@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "../../react-auth0-spa";
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -40,10 +40,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
 function NewsPage() {
     const { isAuthenticated } = useAuth0();
     const classes = useStyles();
 
+    const [title, setTitle] = useState("");
+    const [body, setBody] = useState("");
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        console.log("title is " + title);
+        console.log("body is " + body);
+        
+      };
 
     return (
         <>
@@ -72,6 +82,7 @@ function NewsPage() {
                                         id="standard-full-width"
                                         label="Title"
                                         variant="outlined"
+                                        onChange={e => setTitle(e.target.value)}
 
                                     />
                                     <TextField
@@ -80,9 +91,15 @@ function NewsPage() {
                                         label="News Item"
                                         variant="outlined"
                                         multiline='true'
+                                        onChange={e => setBody(e.target.value)}
                                     />
 
-                                    <Button variant="contained" color="primary">Submit</Button>
+                                    <Button 
+                                    variant="contained" 
+                                    color="primary"
+                                    onSubmit={handleSubmit}
+                                    type="submit"
+                                    >Submit</Button>
                                 </form>
                             </Paper>
                         </Grid>
