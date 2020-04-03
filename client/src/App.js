@@ -19,6 +19,7 @@ import HomeDebug from './components/pages/HomeDebug';
 import Calendar from './components/pages/Calendar';
 import DumbHome from './components/pages/DumbHome';
 import DumbPhotos from './components/pages/DumbPhotos';
+import NewsPage from './components/pages/NewsPage';
 import history from "./utils/history";
 import PrivateRoute from "./components/PrivateRoute";
 import Button from '@material-ui/core/Button';
@@ -57,6 +58,7 @@ function App() {
         {!isAuthenticated && <Route exact path="/" component={HomeDebug} />}
         {!isAuthenticated && <Route exact path="/list" component={List} />}
         {!isAuthenticated && <Route exact path="/list2" component={List2} />}
+        {!isAuthenticated && <Route exact path="/newspage" component={NewsPage} />}
         {isAuthenticated && <Route exact path="/" component={Home} />}
         {isAuthenticated && <Route exact path="/photos" component={Photos} />}
         {isAuthenticated && <Route exact path="/calendar" component={Calendar} />}

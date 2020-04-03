@@ -52,6 +52,7 @@ const NavBar = () => {
         <Link to="/"  className= {classes.link+" "+location.pathname === "/" ? "nav-link active" : "nav-link"} > Home</Link>
         <Link to="/list"  className= {classes.link+" "+location.pathname === "/list" ? "nav-link active" : "nav-link"} > List (test)</Link>
         <Link to="/list2"  className= {classes.link+" "+location.pathname === "/list2" ? "nav-link active" : "nav-link"} > List2 (test)</Link>
+        <Link to="/newspage"  className= {classes.link+" "+location.pathname === "/newspage" ? "nav-link active" : "nav-link"} > News Page</Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className=   " mr-auto">
