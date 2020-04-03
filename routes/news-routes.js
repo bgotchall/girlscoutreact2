@@ -8,6 +8,7 @@ module.exports = function(app) {
 // GET route for getting all of the posts
 app.get("/api/news", function(req, res) {
     var query = {};
+    console.log("sending the news to the client");
     // if (req.query.author_id) {
     //   query.AuthorId = req.query.author_id;
     // }
