@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth0 } from "../react-auth0-spa";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -6,6 +6,25 @@ import Grid from "@material-ui/core/Grid";
 
 function Banner() {
   const { isAuthenticated } = useAuth0();
+  const [list, setList] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    getList();
+  }, []);
+
+  //Retrieves the list of items from the Express app
+  function getList() {
+    fetch('api/header')
+      .then(res => res.json())
+      .then(results => {
+        setList(results);
+        setIsLoaded(true);
+        console.log(`length is ${results.length}`)
+      })
+  }
+
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -23,20 +42,24 @@ function Banner() {
     }
   }));
 
+  //here the idea is that you only show the most recent item.
   const classes = useStyles();
-
-  return (
-    <>
-      <div className={classes.banner}>
-        <h1> Introductory Title!</h1>
-        <br />
-        <h3> Some other information.</h3>
-        <br />
-      </div>
-    </>
-  );
-}
-
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  } else {
+    return (
+      <>
+        <div className={classes.banner}>
+          <h1> {list[0].title}</h1>
+          <h5>{list[0].subtitle}</h5>
+          <br />
+          <h3>{list[0].news_detail}</h3>
+          <br />
+        </div>
+      </>
+    );
+  };
+};
 export default Banner;
 
 /////
