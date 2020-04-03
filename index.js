@@ -7,7 +7,7 @@ const app = express();
 var db = require('./models');
 
 // Sets up the Express app to handle data parsing
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Serve the static files from the React app
@@ -48,7 +48,7 @@ app.get('*', (req,res) =>{
 // =============================================================
 db.sequelize.sync({ force: false }).then(function() {
     app.listen(5000, function() {
-      console.log("database listening on PORT " + 5000);
+      console.log("server listening on PORT " + 5000);
     });
   });
 
