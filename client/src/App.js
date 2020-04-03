@@ -28,7 +28,6 @@ import AboveHeader from './components/AboveHeader.js';
 import Carousel from './components/pages/Carousel.js';
 import Loading from './components/Loading.js';
 import List from './components/List.js';
-//import List from './components/ListRefactored.js';
 import List2 from './components/List2.js';
 
 function App() {
