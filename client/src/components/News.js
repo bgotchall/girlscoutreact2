@@ -1,3 +1,4 @@
+import {debugging} from '../globals';
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "../react-auth0-spa";
 import { makeStyles } from "@material-ui/core/styles";
@@ -6,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 
 export default function News() {
   const { isAuthenticated } = useAuth0();
+  const isAuthenticated2 =  isAuthenticated|| debugging;
   const [list, setList] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -51,7 +53,15 @@ export default function News() {
     },
     newstext: {
       textAlign: "left",
-
+    },
+    headlineLink: {
+      textAlign: "left",
+      fontSize: '2.5rem',
+      fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji',
+      marginBottom: '.5rem',
+      fontWeight: '1100',
+      lineHeight: '1.2',
+      color: 'rgba(0, 0, 0, 0.54)',
     }
   }));
 
@@ -62,7 +72,7 @@ export default function News() {
     return (
 
       <div>
-        <h1>NEWS</h1>
+        <a className={classes.headlineLink}  href="/newspage">NEWS</a>
         {/* Check to see if any items are found*/}
         {list.length ? (
           <div className={classes.newstext}>
@@ -70,10 +80,11 @@ export default function News() {
             {list.map((item) => {
               return (
                 <div>
+                   <hr />
                   <p>{item.newsDate}</p>
                   <h5>{item.title}</h5>
                   <p>{item.news_detail}</p>
-                  <hr />
+                 
                 </div>
               );
             })}

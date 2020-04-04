@@ -28,7 +28,7 @@ maybe: http://jquense.github.io/react-big-calendar/examples/index.html
 kind of a rabbit hole getting the calendar integration.  I do have the example from the old project but it also didnt seem to work well.  I will put this off for now.  lots of google resources and the NPM helper library:
 https://www.npmjs.com/package/googleapis#using-api-keys
 
-
+4/3:  wait a minute.  why bother with google if I can put stuff into a table?  just provide the editor.
 
 general thoughts and to-dos:
 * email malia and or kim with feedback, requests etc.  How do cookie booths work?  ask for spreadsheets.  part done.  have lots of spreadsheets in email.  also a member roster, conveniently.

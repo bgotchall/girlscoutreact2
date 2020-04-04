@@ -1,5 +1,5 @@
-// src/components/NavBar.js
 
+import { debugging } from '../globals.js';
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "../react-auth0-spa";
 import { Link, useLocation } from "react-router-dom";
@@ -13,7 +13,6 @@ import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import AuthLink from "../utils/AuthLink";
 import { makeStyles } from "@material-ui/core/styles";
-import Loading from './Loading';
 import SimpleBackdrop from './SimpleBackdrop.js';
 
 
@@ -25,6 +24,8 @@ const NavBar = () => {
     loginWithRedirect,
     logout
   } = useAuth0();
+  const isAuthenticated2 = isAuthenticated || debugging;
+
   const location = useLocation();
   const [showAvatar, setShowAvatar] = useState(false);
   const [avatarName, setAvatarName] = useState();
@@ -35,7 +36,10 @@ const NavBar = () => {
       //backgroundColor: "#00ae58" //#00ae58 is the GS green color
     },
     link: {
-      color: 'white',
+      color: 'black',
+    },
+    avatar: {
+      marginRight: '5px',
     }
   }));
 
@@ -47,45 +51,49 @@ const NavBar = () => {
 
   return (
     <>
-      <Navbar className={classes.root}  expand="lg">
+      <Navbar className={classes.root} expand="lg">
         {/* <Navbar.Brand href="/">Home</Navbar.Brand> */}
-        <Link to="/"  className= {classes.link+" "+location.pathname === "/" ? "nav-link active" : "nav-link"} > Home</Link>
-        <Link to="/list"  className= {classes.link+" "+location.pathname === "/list" ? "nav-link active" : "nav-link"} > List (test)</Link>
-        <Link to="/DatePickerTest"  className= {classes.link+" "+location.pathname === "/DatePickerTest" ? "nav-link active" : "nav-link"} > DatePickerTest</Link>
-        <Link to="/newspage"  className= {classes.link+" "+location.pathname === "/newspage" ? "nav-link active" : "nav-link"} > Update News</Link>
-        <Link to="/bannerpage"  className= {classes.link+" "+location.pathname === "/bannerpage" ? "nav-link active" : "nav-link"} > Update Banner</Link>
+        <Link to="/" className={classes.link} > Home</Link>
+
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className=   " mr-auto">
+          <Nav className=" mr-auto">
+
             <AuthLink name="Calendar" route="/calendar"></AuthLink>
             <AuthLink name="Signups" route="/signup"></AuthLink>
-            <AuthLink name="News" route="/news"></AuthLink>
+            <AuthLink name="Photos" route="/photos"></AuthLink>
+            <AuthLink name="Update news" route="/newspage"></AuthLink>
+            <AuthLink name="Update banner" route="/bannerpage"></AuthLink>
             <AuthLink name="Profile" route="/profile"></AuthLink>
-            <AuthLink name="CarouselTest" route="/carousel"></AuthLink>
 
             {/* {isAuthenticated && <PrivateRoute path="/profile" component={Profile} />} */}
 
-            {isAuthenticated && (
+            {isAuthenticated2 && (
               <NavDropdown title="Admin" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/membersManage">
-                  Manage Members
+                <NavDropdown.Item>
+                <AuthLink name="Manage members" route="/membersManage"></AuthLink>
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/signups">
-                  Manage Signups
+                <NavDropdown.Item>
+                <AuthLink name="Manage Signups" route="/signupManage"></AuthLink>
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something Else
+                <NavDropdown.Item>
+                  <AuthLink name="Update news" route="/newspage"></AuthLink>
+                </NavDropdown.Item>
+                <NavDropdown.Item >
+                  <AuthLink name="Update banner" route="/bannerpage"></AuthLink>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/carousel">
-                  Carousel
+                  Something else
                 </NavDropdown.Item>
               </NavDropdown>
             )}
           </Nav>
 
-          {!isAuthenticated && (
+          {!isAuthenticated2 && (
             <Button
+              className={classes.avatar}
               variant="contained"
               color="primary"
               onClick={() => loginWithRedirect({})}
@@ -94,14 +102,21 @@ const NavBar = () => {
             </Button>
           )}
 
-          {isAuthenticated && (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => logout()}
-            >
-              Log out
+          {isAuthenticated2 && !debugging && (
+            <Avatar className={classes.avatar} alt={user.name} src={user.picture} />
+          )}
+
+          {isAuthenticated2 && (
+            <>
+              <Button
+                className={classes.avatar}
+                variant="contained"
+                color="primary"
+                onClick={() => logout()}
+              >
+                Log out
             </Button>
+            </>
           )}
 
           <Form inline>

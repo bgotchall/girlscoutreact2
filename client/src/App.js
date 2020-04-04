@@ -1,3 +1,4 @@
+import {debugging} from './globals';
 import React from "react";
 import NavBar from "./components/NavBar";
 import SecureNavBar from "./components/SecureNavBar";
@@ -19,8 +20,7 @@ import Photos from './components/pages/Photos';
 //import PublicHome from './components/pages/PublicHome';
 //import HomeDebug from './components/pages/Home';
 import Calendar from './components/pages/Calendar';
-//import DumbHome from './components/pages/DumbHome';
-import DumbPhotos from './components/pages/DumbPhotos';
+
 import NewsPage from './components/pages/NewsPage';
 import BannerPage from './components/pages/BannerPage';
 import history from "./utils/history";
@@ -29,20 +29,20 @@ import Button from '@material-ui/core/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AboveHeader from './components/AboveHeader.js';
 import Carousel from './components/pages/Carousel.js';
-import Loading from './components/Loading.js';
+import SimpleBackdrop from './components/SimpleBackdrop.js';
 import List from './components/List.js';
-import List2 from './components/List2.js';
+
 
 
 function App() {
   const { loading, user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const isAuthenticated2 =  isAuthenticated|| debugging;
+  
 
   
 
-  const debugging=true;
-
   if (!debugging&&loading) {
-    return <Loading />;
+    return <SimpleBackdrop />;
   }
   
   return (
@@ -52,23 +52,25 @@ function App() {
       <Router history={history}>
       <AboveHeader />
         <header>
-          {!isAuthenticated && <NavBar />}
-          {isAuthenticated && <SecureNavBar />}
+        <NavBar />
+          {/* {!isAuthenticated && <NavBar />}
+          {isAuthenticated && <SecureNavBar />} */}
 
         </header>
 
         {/* <Route exact path="/" component={Home} />
         <Route exact path="/photos" component={Photos} /> */}
         {/* Switch the below line to PublicHome for production */}
-        {!isAuthenticated && <Route exact path="/" component={Home} />}
-        {!isAuthenticated && <Route exact path="/list" component={List} />}
-        {!isAuthenticated && <Route exact path="/newspage" component={NewsPage} />}
-        {!isAuthenticated && <Route exact path="/bannerpage" component={BannerPage} />}
-        {isAuthenticated && <Route exact path="/" component={Home} />}
-        {isAuthenticated && <Route exact path="/photos" component={Photos} />}
-        {isAuthenticated && <Route exact path="/calendar" component={Calendar} />}
-        {isAuthenticated && <Route exact path="/profile" component={Profile} />}
-        {isAuthenticated && <Route exact path="/carousel" component={Carousel} />}
+        {!isAuthenticated2 && <Route exact path="/" component={Home} />}
+        {isAuthenticated2 && <Route exact path="/" component={Home} />}
+        {isAuthenticated2 && <Route exact path="/list" component={List} />}
+        {isAuthenticated2 && <Route exact path="/newspage" component={NewsPage} />}
+        {isAuthenticated2 && <Route exact path="/bannerpage" component={BannerPage} />}
+        {isAuthenticated2 && <Route exact path="/calendar" component={Calendar} />}
+        {isAuthenticated2 && <Route exact path="/photos" component={Photos} />}
+        {isAuthenticated2 && <Route exact path="/calendar" component={Calendar} />}
+        {isAuthenticated2 && <Route exact path="/profile" component={Profile} />}
+        {isAuthenticated2 && <Route exact path="/carousel" component={Carousel} />}
         
 
 

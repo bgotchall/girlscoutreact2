@@ -1,3 +1,4 @@
+import {debugging} from '../../globals';
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "../../react-auth0-spa";
 import { makeStyles } from '@material-ui/core/styles';
@@ -5,7 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -46,24 +48,35 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const debug = true;
-
 function BannerPage() {
-    const { isAuthenticated_real } = useAuth0();
-    const isAuthenticated =  isAuthenticated_real|| debug;
+    const { isAuthenticated } = useAuth0();
+    const isAuthenticated2 =  isAuthenticated|| debugging;
     const classes = useStyles();
 
     const [title, setTitle] = useState("");
     const [subtitle, setSubTitle] = useState("");
     const [body, setBody] = useState("");
-    const [selectedDate, handleDateChange] = useState(new Date());
+   
+    const [writeOpen, setWriteOpen] = useState(false);  //for the snackbar/toast/alert
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
 
     const handleSubmit = e => {
         e.preventDefault();
         console.log("title is " + title);
         console.log("body is " + body);
-        console.log("the date is " + selectedDate)
+        
         postData();
+    };
+
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setWriteOpen(false);
     };
 
     function postData() {
@@ -79,13 +92,13 @@ function BannerPage() {
         };
         fetch('api/header', requestOptions)
             .then(response => response.json())
-        //.then(data => setPostId(data.id));
+             setWriteOpen(true);          //fire off the toast
 
     };
 
     return (
         <>
-            {isAuthenticated && (
+            {isAuthenticated2 && (
                 <div className={classes.root} >
                     <Grid container className={classes.contentContainer} item xs={12}>
                         <Grid item xs={12}>
@@ -131,9 +144,16 @@ function BannerPage() {
                             </Paper>
                         </Grid>
                     </Grid>
+
+
+                    <Snackbar open={writeOpen} autoHideDuration={3000} onClose={handleClose}>
+                        <Alert onClose={handleClose} severity="success">
+                            News Item Saved!
+                        </Alert>
+                    </Snackbar>
                 </div>
             )}
-            {!isAuthenticated && (
+            {!isAuthenticated2 && (
 
                 <div>
                     <paper>

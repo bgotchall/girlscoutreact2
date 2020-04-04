@@ -1,3 +1,4 @@
+import {debugging} from '../../globals';
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "../../react-auth0-spa";
 import { makeStyles } from '@material-ui/core/styles';
@@ -50,11 +51,10 @@ function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const debug = true;
 
 function NewsPage() {
-    const { isAuthenticated_real } = useAuth0();
-    const isAuthenticated = isAuthenticated_real || debug;
+    const { isAuthenticated } = useAuth0();
+    const isAuthenticated2 = isAuthenticated || debugging;
     const classes = useStyles();
 
     const [title, setTitle] = useState("");
@@ -142,7 +142,7 @@ function NewsPage() {
 
     return (
         <>
-            {isAuthenticated && (
+            {isAuthenticated2 && (
                 <div className={classes.root} >
                     <Grid container className={classes.contentContainer} item xs={12}>
                         <Grid item xs={12}>
@@ -234,7 +234,7 @@ function NewsPage() {
 
                 </div>
             )}
-            {!isAuthenticated && (
+            {!isAuthenticated2 && (
 
                 <div>
                     <paper>

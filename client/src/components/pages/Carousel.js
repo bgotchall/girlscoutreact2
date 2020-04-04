@@ -8,7 +8,6 @@ import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
-
 import { useAuth0 } from "../../react-auth0-spa";
 
 import picgs1 from '../../assets/images/gs1.JPG';
@@ -16,9 +15,6 @@ import picgs2 from '../../assets/images/gs2.JPG';
 import picgs3 from '../../assets/images/gs3.JPG';
 import picgs4 from '../../assets/images/gs4.JPG';
 import picgs5 from '../../assets/images/gs5.JPG';
-
-
-
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 

@@ -1,5 +1,5 @@
-// src/components/NavBar.js
 
+import {debugging} from '../globals';
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "../react-auth0-spa";
 import { Link, useLocation } from "react-router-dom";
