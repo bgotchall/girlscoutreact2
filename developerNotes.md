@@ -66,3 +66,6 @@ Key lessons:
 SQL notes:
 Spent forever debugging a test case of getting/posting dumb things from SQL.  You essentally cannot hand-write test data into the DB, it will fail sequelizes' mean tests.  Easier to write a post route and read that.
 Also, it insists on Pluralizing the names so you can't even control that.
+
+Auth0 notes:
+if it spins forever, delete the cookie and refresh

@@ -5,10 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
 
-import { DatePicker } from "@material-ui/pickers";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,46 +44,19 @@ const useStyles = makeStyles((theme) => ({
         width: "200px",
     },
 }));
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+
 
 const debug = true;
 
-function NewsPage() {
+function BannerPage() {
     const { isAuthenticated_real } = useAuth0();
-    const isAuthenticated = isAuthenticated_real || debug;
+    const isAuthenticated =  isAuthenticated_real|| debug;
     const classes = useStyles();
 
     const [title, setTitle] = useState("");
+    const [subtitle, setSubTitle] = useState("");
     const [body, setBody] = useState("");
     const [selectedDate, handleDateChange] = useState(new Date());
-    const [writeOpen, setWriteOpen] = useState(false);  //for the snackbar/toast/alert
-    const [deleteOpen, setDeleteOpen] = useState(false);  //for the snackbar/toast/alert
-    const [dirty, setDirty]= useState(false);
-
-    const [list, setList] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    useEffect(() => {
-        // Update the document title using the browser API
-        getList();
-        setTitle("");
-        setBody("");
-        setDirty(false);
-    }, [dirty]);
-
-    //Retrieves the list of items from the Express app
-    function getList() {
-        fetch('api/news')
-            .then(res => res.json())
-            .then(results => {
-                setList(results);
-                setIsLoaded(true);
-                console.log(`length is ${results.length}`)
-            })
-    }
-
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -93,50 +64,22 @@ function NewsPage() {
         console.log("body is " + body);
         console.log("the date is " + selectedDate)
         postData();
-        setTitle("");
-        setBody("");
-        setDirty(true);
-    };
-
-    function deleteNews(id)  {
-       
-        console.log("Deleting " + id);
-        fetch('api/news/' + id,{method:'delete'})
-            .then(res => res.json())
-            .then(results => {
-                console.log(`item ${id} was deleted.  result: ${results}`)
-                setDirty(true);
-                setDeleteOpen(true);          //fire off the toast
-            
-            })
-
-    };
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setWriteOpen(false);
-        setDeleteOpen(false);
     };
 
     function postData() {
         const data = {
-            newsDate: { selectedDate },
             title: title,
-            news_detail: body,
-            author: 0,
+            subtitle: subtitle,
+            news_detail: body
         }
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         };
-        fetch('api/news', requestOptions)
+        fetch('api/header', requestOptions)
             .then(response => response.json())
-            
-        setWriteOpen(true);          //fire off the toast
-        
+        //.then(data => setPostId(data.id));
 
     };
 
@@ -147,34 +90,27 @@ function NewsPage() {
                     <Grid container className={classes.contentContainer} item xs={12}>
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
-                                <h1> News page public page</h1>
+                                <h1> Banner Edit</h1>
                             </Paper>
                         </Grid>
 
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
                                 <form className={classes.root} noValidate autoComplete="off">
-                                    <DatePicker
-                                        className={classes.date}
-                                        disableToolbar
-                                        variant="outlined"
-                                        format="MM/dd/yyyy"
-                                        margin="normal"
-                                        id="date-picker-inline"
-                                        label="News Date"
-                                        value={selectedDate}
-                                        onChange={handleDateChange}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'change date',
-                                        }}
-                                    />
+                                    
                                     <TextField
                                         className={classes.textField}
                                         id="standard-full-width"
                                         label="Title"
                                         variant="outlined"
                                         onChange={e => setTitle(e.target.value)}
-
+                                    />
+                                    <TextField
+                                        className={classes.textField}
+                                        id="standard-full-width"
+                                        label="Sub Title"
+                                        variant="outlined"
+                                        onChange={e => setSubTitle(e.target.value)}
                                     />
                                     <TextField
                                         className={classes.bigBox}
@@ -193,45 +129,8 @@ function NewsPage() {
                                     >Submit</Button>
                                 </form>
                             </Paper>
-
-                            <h1>NEWS</h1>
-
-                            {list.map((item) => {
-                                return (
-                                    <div>
-                                        <p>{item.newsDate}</p>
-                                        <h5>{item.title}</h5>
-                                        <p>{item.news_detail}</p>
-                                        <button
-                                           onClick={() => deleteNews(item.id)}
-                                           buttonsid={item.id} 
-                                        >delete</button>
-                                        <hr />
-                                    </div>
-                                );
-                            })}
-
-
                         </Grid>
                     </Grid>
-
-
-
-
-
-
-
-                    <Snackbar open={writeOpen} autoHideDuration={3000} onClose={handleClose}>
-                        <Alert onClose={handleClose} severity="success">
-                            News Item Saved!
-                        </Alert>
-                    </Snackbar>
-                    <Snackbar open={deleteOpen} autoHideDuration={3000} onClose={handleClose}>
-                        <Alert onClose={handleClose} severity="success">
-                            Item Deleted!
-                        </Alert>
-                    </Snackbar>
-
                 </div>
             )}
             {!isAuthenticated && (
@@ -247,5 +146,5 @@ function NewsPage() {
     );
 };
 
-export default NewsPage;
+export default BannerPage;
 

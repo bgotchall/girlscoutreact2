@@ -16,7 +16,7 @@ export default function News() {
 
   //Retrieves the list of items from the Express app
   function getList() {
-    fetch('api/news')
+    fetch('api/news5')
       .then(res => res.json())
       .then(results => {
         setList(results);

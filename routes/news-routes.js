@@ -8,9 +8,19 @@ module.exports = function (app) {
     // GET route for getting all of the posts
     app.get("/api/news", function (req, res) {
         db.News.findAll({
-                limit: 4,
-                order: [
-                      ['newsDate', 'DESC']]
+            order: [
+                ['newsDate', 'DESC']]
+        }).then(function (dbPost) {
+            res.json(dbPost);
+        });
+    });
+
+     // GET route for getting 5 most recent posts
+     app.get("/api/news5", function (req, res) {
+        db.News.findAll({
+            limit: 5,
+            order: [
+                ['newsDate', 'DESC']]
         }).then(function (dbPost) {
             res.json(dbPost);
         });
@@ -42,12 +52,12 @@ module.exports = function (app) {
             });
     });
 
-    app.delete("/api/news/:id", function(req, res) {
+    app.delete("/api/news/:id", function (req, res) {
         console.log(`attempting to delete id: ${req.params.id}`)
-        db.News.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
-          res.json(dbExample);
+        db.News.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
+            res.json(dbExample);
         });
-      });
+    });
 
 };
 ////////////////end of posts///////////

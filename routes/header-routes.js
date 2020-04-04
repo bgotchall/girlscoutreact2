@@ -48,5 +48,13 @@ module.exports = function (app) {
       });
   });
 
+  app.delete("/api/header/:id", function(req, res) {
+    console.log(`attempting to delete id: ${req.params.id}`)
+    db.Headers.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
+      res.json(dbExample);
+    });
+  });
+
+
 };
 ////////////////end of posts///////////
