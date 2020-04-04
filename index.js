@@ -39,12 +39,12 @@ app.get('*', (req,res) =>{
 });
 
 
-
+var PORT = process.env.PORT || 5000;
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
 db.sequelize.sync({ force: false }).then(function() {
     app.listen(5000, function() {
-      console.log("server listening on PORT " + 5000);
+      console.log("server listening on PORT " + PORT);
     });
   });
 
