@@ -42,6 +42,10 @@ general thoughts and to-dos:
 * do a news zoom page.
 * fix the logout localhost bug
 
+*news items:
+    * date sort them most recent to least.
+    * limit them to 5
+
 
 Front end/backend notes:
 This helped me a lot:  https://dev.to/nburgess/creating-a-react-app-with-react-router-and-an-express-backend-33l3

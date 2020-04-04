@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth0 } from "../../react-auth0-spa";
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -6,14 +6,12 @@ import Button from '@material-ui/core/Button';
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
+import { DatePicker } from "@material-ui/pickers";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
             margin: theme.spacing(1),
-
-
-            //flexWrap: 'wrap',
             flexGrow: 1,
             display: "flex",
             flexWrap: "wrap",
@@ -37,35 +35,58 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.secondary,
         backgroundColor: " offwhite"
     },
+    date: {
+        padding: theme.spacing(2),
+        margin: theme.spacing(1),
+        textAlign: "center",
+        color: theme.palette.text.secondary,
+        backgroundColor: " offwhite",
+        width: "200px",
+    },
 }));
 
 
+const debug = true;
 
 function NewsPage() {
-    const { isAuthenticated } = useAuth0();
+    const { isAuthenticated_real } = useAuth0();
+    const isAuthenticated =  isAuthenticated_real|| debug;
     const classes = useStyles();
 
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
+    const [selectedDate, handleDateChange] = useState(new Date());
 
     const handleSubmit = e => {
         e.preventDefault();
         console.log("title is " + title);
         console.log("body is " + body);
-        
-      };
+        console.log("the date is " + selectedDate)
+        postData();
+    };
+
+    function postData() {
+        const data = {
+            newsDate: { selectedDate },
+            title: title,
+            news_detail: body,
+            author: 0,
+        }
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        };
+        fetch('api/news', requestOptions)
+            .then(response => response.json())
+        //.then(data => setPostId(data.id));
+
+    };
 
     return (
         <>
             {isAuthenticated && (
-                <div>
-                    <h1> news page secret content </h1>
-                    <p> more content is allowed?</p>
-                </div>
-            )}
-            {!isAuthenticated && (
                 <div className={classes.root} >
-
                     <Grid container className={classes.contentContainer} item xs={12}>
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
@@ -76,7 +97,20 @@ function NewsPage() {
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
                                 <form className={classes.root} noValidate autoComplete="off">
-
+                                    <DatePicker
+                                        className={classes.date}
+                                        disableToolbar
+                                        variant="outlined"
+                                        format="MM/dd/yyyy"
+                                        margin="normal"
+                                        id="date-picker-inline"
+                                        label="News Date"
+                                        value={selectedDate}
+                                        onChange={handleDateChange}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
+                                    />
                                     <TextField
                                         className={classes.textField}
                                         id="standard-full-width"
@@ -94,23 +128,24 @@ function NewsPage() {
                                         onChange={e => setBody(e.target.value)}
                                     />
 
-                                    <Button 
-                                    variant="contained" 
-                                    color="primary"
-                                    onSubmit={handleSubmit}
-                                    type="submit"
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={handleSubmit}
+                                        type="submit"
                                     >Submit</Button>
                                 </form>
                             </Paper>
                         </Grid>
                     </Grid>
+                </div>
+            )}
+            {!isAuthenticated && (
 
-
-
-
+                <div>
                     <paper>
-
-
+                        <h1> news page public content </h1>
+                        <p> You should log in</p>
                     </paper>
                 </div>
             )}
