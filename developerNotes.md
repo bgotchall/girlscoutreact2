@@ -69,3 +69,6 @@ Also, it insists on Pluralizing the names so you can't even control that.
 
 Auth0 notes:
 if it spins forever, delete the cookie and refresh
+
+deploy debug notes:
+I replaced my index.js with a template from the internet and it works fine.  something in there.

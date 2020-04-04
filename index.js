@@ -4,6 +4,9 @@ const path = require('path');
 
 const app = express();
 
+// Requiring our models for syncing
+var db = require('./models');
+
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
