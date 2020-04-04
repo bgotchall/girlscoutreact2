@@ -24,14 +24,14 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
-// require("./routes/news-routes.js")(app);
-// require("./routes/test-routes.js")(app);
-// require("./routes/header-routes.js")(app);
+require("./routes/news-routes.js")(app);
+require("./routes/test-routes.js")(app);
+require("./routes/header-routes.js")(app);
 
 var PORT = process.env.PORT || 5000;
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
-db.sequelize.sync({ force: false }).then(function() {
+db.sequelize.sync({ force: true }).then(function() {
     app.listen(5000, function() {
       console.log("server listening on PORT " + PORT);
     });
