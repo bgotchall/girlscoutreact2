@@ -122,7 +122,7 @@ function NewsPage() {
 
     function postData() {
         const data = {
-            newsDate: { selectedDate },
+            newsDate:  selectedDate ,
             title: title,
             news_detail: body,
             author: 0,

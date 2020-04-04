@@ -19,7 +19,8 @@ import Home from './components/pages/Home';
 import Photos from './components/pages/Photos';
 //import PublicHome from './components/pages/PublicHome';
 //import HomeDebug from './components/pages/Home';
-import Calendar from './components/pages/Calendar';
+//import Calendar from './components/pages/Calendar';
+import BigCalendar from './components/pages/CalendarPage';
 
 import NewsPage from './components/pages/NewsPage';
 import BannerPage from './components/pages/BannerPage';
@@ -66,9 +67,8 @@ function App() {
         {isAuthenticated2 && <Route exact path="/list" component={List} />}
         {isAuthenticated2 && <Route exact path="/newspage" component={NewsPage} />}
         {isAuthenticated2 && <Route exact path="/bannerpage" component={BannerPage} />}
-        {isAuthenticated2 && <Route exact path="/calendar" component={Calendar} />}
         {isAuthenticated2 && <Route exact path="/photos" component={Photos} />}
-        {isAuthenticated2 && <Route exact path="/calendar" component={Calendar} />}
+        {isAuthenticated2 && <Route exact path="/calendar" component={BigCalendar} />}
         {isAuthenticated2 && <Route exact path="/profile" component={Profile} />}
         {isAuthenticated2 && <Route exact path="/carousel" component={Carousel} />}
         

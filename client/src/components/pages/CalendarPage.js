@@ -7,10 +7,10 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
-import { thisCalendar, momentLocalizer } from "react-big-calendar";
+import { Calendar, momentLocalizer } from "react-big-calendar";
 
 
-export default function Calendar() {
+export default function BigCalendar() {
   const { isAuthenticated } = useAuth0();
   const isAuthenticated2 = isAuthenticated || debugging;
 
@@ -87,9 +87,9 @@ export default function Calendar() {
           <div className={classes.newstext}>
             <h1 className={classes.headlineLink}>CALENDAR</h1>
             <hr />
-            <thisCalendar
+            <Calendar
               localizer={localizer}
-              style={{ height: "820px" }}
+              style={{ height: "820px" , margin: "50px"}}
               events={events}
             />
           </div>

@@ -6,6 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Carousel from "./Carousel";
 import News from '../News';
+import Footer from '../Footer';
 import CalendarEmbed from '../CalendarEmbed';
 import EventsEmbed from '../EventsEmbed';
 import Banner from '../Banner';
@@ -18,9 +19,6 @@ export default function Home() {
   
 
   const isAuthenticated2 =  isAuthenticated|| debugging;
-  console.log(`Authenticated in Home is equal to ${isAuthenticated2}`);
-  console.log(`debugging in Home is equal to ${debugging}`);
-  console.log(`Real Auth in Home is equal to ${isAuthenticated}`);
   const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
@@ -113,7 +111,9 @@ export default function Home() {
                 <Paper className={classes.paper}>chat function</Paper>
               </Grid>
               <Grid item xs={12}>
-                <Paper className={classes.paper}>footer</Paper>
+                <Paper className={classes.paper}>
+                  <Footer />
+                </Paper>
               </Grid>
             </Grid>
           </Grid>
