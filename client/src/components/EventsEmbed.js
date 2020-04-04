@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth0 } from "../react-auth0-spa";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import moment from 'moment';
 
 function EventsEmbed() {
   const { isAuthenticated } = useAuth0();
+  const [events, setEvents] = useState([]);
+  const [list, setList] = useState([]);
+  const [title, setTitle] = useState("");
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
   //
   const useStyles = makeStyles(theme => ({
     root: {
@@ -47,29 +53,77 @@ function EventsEmbed() {
 
   const classes = useStyles();
 
+  useEffect(() => {
+    // Update the document title using the browser API
+    getList();
+    setTitle("");
+  }, []);
+
+  //Retrieves the list of items from the Express app
+  function getList() {
+    fetch('api/calendar5')
+      .then(res => res.json())
+      .then(results => {
+        setList(results);
+        console.log(`length is ${results.length}`)
+      })
+  }
+
+  function getEvents() {
+    let temp_events = []
+    //Retrieves the list of items from the Express app
+    console.log(`starting the events fetch`);
+    fetch('api/calendar')
+      .then(res => res.json())
+      .then(results => {
+        setList(results);
+        //setIsLoaded(true);
+        console.log(`length is ${results.length}`);
+        console.log(`data is ${JSON.stringify(results)}`);
+        results.map((item) => {
+          temp_events.push({
+            title: item.title,
+            start: item.start,
+            end: item.end
+          })
+        })
+        setEvents(temp_events)
+      })
+  }
+
+  function getFormattedDate(dateStart, dateEnd) {
+    // if the dates are the same, return one date.
+    // if the dates are not the same, return "Feb 3-4"
+
+    dateStart = moment(dateStart).format("MMM Do YY");
+    dateEnd = moment(dateEnd).format("MMM Do YY");
+
+    if (dateStart === dateEnd) {
+      return (dateStart);
+    } else {
+      return (dateStart +" to "+ dateEnd);
+
+    }
+
+  }
+
+
   return (
     <>
 
-      <a className={classes.headlineLink} href="/events">EVENTS</a>
+      <a className={classes.headlineLink} href="/manageevents">EVENTS</a>
       <div className={classes.newstext}>
         <hr />
-        <p>March 1</p>
-        <h5>Troop 1690 camping trip</h5>
-        <p>
-          The girls went camping and had so much fun! Click here to see pictures
-        </p>
-        <hr></hr>
-        <p>March 1</p>
-        <h5>Troop 1690 camping trip</h5>
-        <p>
-          The girls went camping and had so much fun! Click here to see pictures
-        </p>
-        <hr></hr>
-        <p>March 1</p>
-        <h5>Troop 1690 camping trip</h5>
-        <p>
-          The girls went camping and had so much fun! Click here to see pictures
-        </p>
+        {list.map((item) => {
+          return (
+            <div>
+               <h5>{getFormattedDate(item.start, item.end)}:</h5>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+              <hr />
+            </div>
+          );
+        })}
 
       </div>
     </>

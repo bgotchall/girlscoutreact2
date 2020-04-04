@@ -1,4 +1,4 @@
-import {debugging} from '../../globals';
+import { debugging } from '../../globals';
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "../../react-auth0-spa";
 import moment from "moment";
@@ -15,6 +15,7 @@ export default function BigCalendar() {
   const isAuthenticated2 = isAuthenticated || debugging;
 
   const [events, setEvents] = useState([]);
+  const [list, setList] = useState([]);
   // const { loading, user } = useAuth0();
 
   // if (loading || !user) {
@@ -22,42 +23,35 @@ export default function BigCalendar() {
   //   }
 
 
-  function getEvents(callback) {
-    const events = []
-    const events_data = [
-      {
-        title: "first",
-        start: "2020-04-03 08:00:00",
-        end: "2020-04-03 09:00:00",
-        allDay: false,
-        resource: "",
-      },
-      {
-        title: "Second",
-        start: "2020-04-13 10:00:00",
-        end: "2020-04-13 11:00:00",
-        allDay: false,
-        resource: "",
-      }
-    ]
 
-    events_data.map((event) => {
-      events.push({
-        start: event.start,
-        end: event.end,
-        title: event.title,
+  function getEvents() {
+    let temp_events = []
+    //Retrieves the list of items from the Express app
+    console.log(`starting the events fetch`);
+    fetch('api/calendar')
+      .then(res => res.json())
+      .then(results => {
+        setList(results);
+        //setIsLoaded(true);
+        console.log(`length is ${results.length}`);
+        console.log(`data is ${JSON.stringify(results)}`);
+        results.map((item)=>{
+          temp_events.push({
+              title: item.title,
+              start: item.start,
+              end: item.end
+          })
+        })
+        setEvents(temp_events)
       })
-    })
-    setEvents(events)
   }
-
 
 
 
   // Load all events and store them with setEvents
   useEffect(() => {
     console.log("big calendar load happened");
-    getEvents();
+    setList(getEvents());
   }, []);
 
   const useStyles = makeStyles(theme => ({
@@ -89,7 +83,7 @@ export default function BigCalendar() {
             <hr />
             <Calendar
               localizer={localizer}
-              style={{ height: "820px" , margin: "50px"}}
+              style={{ height: "820px", margin: "100px" }}
               events={events}
             />
           </div>

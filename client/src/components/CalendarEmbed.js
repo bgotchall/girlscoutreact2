@@ -12,37 +12,30 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 function CalendarEmbed() {
   //state stuff:
   const [events, setEvents] = useState([]);
+  const [list, setList] = useState([]);
 
 
-  function getEvents(callback) {
-    const events = []
-    const events_data = [
-      {
-        title: "first",
-        start: "2020-04-03 08:00:00",
-        end: "2020-04-03 09:00:00",
-        allDay: false,
-        resource: "",
-      },
-      {
-        title: "Second",
-        start: "2020-04-13 10:00:00",
-        end: "2020-04-13 11:00:00",
-        allDay: false,
-        resource: "",
-      }
-    ]
-
-    events_data.map((event) => {
-      events.push({
-        start: event.start,
-        end: event.end,
-        title: event.title,
+  function getEvents() {
+    let temp_events = []
+    //Retrieves the list of items from the Express app
+    console.log(`starting the events fetch`);
+    fetch('api/calendar')
+      .then(res => res.json())
+      .then(results => {
+        setList(results);
+        //setIsLoaded(true);
+        console.log(`length is ${results.length}`);
+        console.log(`data is ${JSON.stringify(results)}`);
+        results.map((item)=>{
+          temp_events.push({
+              title: item.title,
+              start: item.start,
+              end: item.end
+          })
+        })
+        setEvents(temp_events)
       })
-    })
-    setEvents(events)
   }
-
 
 
 

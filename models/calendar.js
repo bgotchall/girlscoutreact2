@@ -1,12 +1,12 @@
 module.exports = function (sequelize, DataTypes) {
     var Calendars = sequelize.define("Calendars", {
         start: {
-            type: DataTypes.DATEONLY,
+            type: DataTypes.DATE,
             defaultValue: DataTypes.NOW,
 
         },
         end: {
-            type: DataTypes.DATEONLY,
+            type: DataTypes.DATE,
             defaultValue: DataTypes.NOW,
 
         },
@@ -16,6 +16,11 @@ module.exports = function (sequelize, DataTypes) {
             validate: {
                 len: [1]
             }
+        },
+        body: {
+            type: DataTypes.STRING,
+            allowNull: true,
+           defaultValue: "placeholder",
         }
         
 

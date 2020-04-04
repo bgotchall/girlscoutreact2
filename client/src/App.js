@@ -21,7 +21,7 @@ import Photos from './components/pages/Photos';
 //import HomeDebug from './components/pages/Home';
 //import Calendar from './components/pages/Calendar';
 import BigCalendar from './components/pages/CalendarPage';
-
+import ManageEventsPage from './components/pages/EventsManage';
 import NewsPage from './components/pages/NewsPage';
 import BannerPage from './components/pages/BannerPage';
 import history from "./utils/history";
@@ -67,6 +67,7 @@ function App() {
         {isAuthenticated2 && <Route exact path="/list" component={List} />}
         {isAuthenticated2 && <Route exact path="/newspage" component={NewsPage} />}
         {isAuthenticated2 && <Route exact path="/bannerpage" component={BannerPage} />}
+        {isAuthenticated2 && <Route exact path="/manageevents" component={ManageEventsPage} />}
         {isAuthenticated2 && <Route exact path="/photos" component={Photos} />}
         {isAuthenticated2 && <Route exact path="/calendar" component={BigCalendar} />}
         {isAuthenticated2 && <Route exact path="/profile" component={Profile} />}

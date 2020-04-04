@@ -30,8 +30,8 @@ app.get('/api/getList', (req,res) => {
 require("./routes/news-routes.js")(app);
 require("./routes/test-routes.js")(app);
 require("./routes/header-routes.js")(app);
-//require("./routes/author-api-routes.js")(app);
-//require("./routes/post-api-routes.js")(app);
+require("./routes/calendar-routes.js")(app);
+
 
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{

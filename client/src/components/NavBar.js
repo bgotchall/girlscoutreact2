@@ -83,6 +83,9 @@ const NavBar = () => {
                 <NavDropdown.Item >
                   <AuthLink name="Update banner" route="/bannerpage"></AuthLink>
                 </NavDropdown.Item>
+                <NavDropdown.Item >
+                  <AuthLink name="Update Events" route="/manageevents"></AuthLink>
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/carousel">
                   Something else

@@ -20,7 +20,7 @@ module.exports = function (app) {
         db.Calendars.findAll({
             limit: 5,
             order: [
-                ['start', 'DESC']]
+                ['start', 'ASC']]
         }).then(function (dbPost) {
             res.json(dbPost);
         });
@@ -32,7 +32,8 @@ module.exports = function (app) {
         db.Calendars.create({
             start: req.body.start,
             end: req.body.end,
-            title: req.body.title
+            title: req.body.title,
+            body: req.body.body
         }).then(function (data) {
             res.json(data);
         });
