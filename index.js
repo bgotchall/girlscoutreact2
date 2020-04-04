@@ -23,24 +23,11 @@ app.get('/api/getList', (req,res) => {
     res.json(list);
     console.log('Sent list of items');
 });
-
-
-
-
-app.get("/api/news", function (req, res) {
-  db.News.findAll({
-      order: [
-          ['newsDate', 'DESC']]
-  }).then(function (dbPost) {
-      res.json(dbPost);
-  });
-});
-
 /////////////end of test route/////////////
 
 // Routes
 // =============================================================
-//require("./routes/news-routes.js")(app);
+require("./routes/news-routes.js")(app);
 require("./routes/test-routes.js")(app);
 require("./routes/header-routes.js")(app);
 //require("./routes/author-api-routes.js")(app);
@@ -56,7 +43,7 @@ var PORT = process.env.PORT || 5000;
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
 db.sequelize.sync({ force: false }).then(function() {
-    app.listen(5000, function() {
+    app.listen(PORT, function() {
       console.log("server listening on PORT " + PORT);
     });
   });
