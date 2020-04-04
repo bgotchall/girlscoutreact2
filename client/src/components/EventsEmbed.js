@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import moment from 'moment';
+import {AuthLinkH1Format} from "../utils/AuthLink";
 
 function EventsEmbed() {
   const { isAuthenticated } = useAuth0();
@@ -110,8 +111,8 @@ function EventsEmbed() {
 
   return (
     <>
-
-      <a className={classes.headlineLink} href="/manageevents">EVENTS</a>
+     <AuthLinkH1Format name="EVENTS" route="/manageevents">EVENTS</AuthLinkH1Format>
+    
       <div className={classes.newstext}>
         <hr />
         {list.map((item) => {

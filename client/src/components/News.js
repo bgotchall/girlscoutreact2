@@ -4,6 +4,7 @@ import { useAuth0 } from "../react-auth0-spa";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import {AuthLinkH1Format} from "../utils/AuthLink";
 
 export default function News() {
   const { isAuthenticated } = useAuth0();
@@ -72,7 +73,8 @@ export default function News() {
     return (
 
       <div>
-        <a className={classes.headlineLink}  href="/newspage">NEWS</a>
+        
+        <AuthLinkH1Format name="NEWS" route="/newspage">NEWS</AuthLinkH1Format>
         {/* Check to see if any items are found*/}
         {list.length ? (
           <div className={classes.newstext}>

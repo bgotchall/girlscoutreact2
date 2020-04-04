@@ -15,7 +15,7 @@ const Photos = () => {
 
     return (
         <>
-            {isAuthenticated && (<h1> Photos page Secret Content </h1>)}
+            {isAuthenticated && (<h1> Photos page Logged in Content </h1>)}
             {!isAuthenticated && (<h1> Photos page Please Log in </h1>)}
         </>
     );

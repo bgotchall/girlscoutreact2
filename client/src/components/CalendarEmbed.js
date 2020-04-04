@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import {AuthLinkH1Format} from "../utils/AuthLink";
 
 import { Calendar, momentLocalizer } from "react-big-calendar";
 //import { getEvents } from "./gcal"; //for googl cal
@@ -70,7 +71,8 @@ function CalendarEmbed() {
   return (
     <>
       <div className={classes.newstext}>
-      <a className={classes.headlineLink}  href="/calendar">CALENDAR</a>
+      <AuthLinkH1Format name="CALENDAR" route="/calendar">CALENDAR</AuthLinkH1Format>
+      
       <hr />
         <Calendar
           localizer={localizer}
