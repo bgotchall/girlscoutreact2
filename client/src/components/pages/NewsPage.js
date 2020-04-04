@@ -147,7 +147,7 @@ function NewsPage() {
                     <Grid container className={classes.contentContainer} item xs={12}>
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
-                                <h1> News page public page</h1>
+                                <h1> Edit News</h1>
                             </Paper>
                         </Grid>
 

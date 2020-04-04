@@ -153,7 +153,7 @@ function EventsManagePage() {
                     <Grid container className={classes.contentContainer} item xs={12}>
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
-                                <h1> Manage Events</h1>
+                                <h1> Edit Events</h1>
                             </Paper>
                         </Grid>
 
