@@ -13,7 +13,7 @@ app.use(express.json());
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 // in case I want to do any local files
-app.use(express.static("public"));
+//app.use(express.static("public"));
 
 
 ////// test route/////////////////
